@@ -1,3 +1,5 @@
+#Dataset: Loan prediction(kaggle)
+#importing necessary libraries
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -6,11 +8,10 @@ from sklearn.ensemble import RandomForestClassifier
 
 df = pd.read_csv('loan_prediction.csv')
 print(df.head())
-
+#dropping loan_id column
 df = df.drop('Loan_ID', axis=1)
-
+#checking for missing values
 df.isnull().sum()
-
 print(df.describe())
 
 # Fill missing values in categorical columns with mode
@@ -28,7 +29,7 @@ df['Loan_Amount_Term'].fillna(df['Loan_Amount_Term'].mode()[0], inplace=True)
 # Fill missing values in Credit_History with the mode
 df['Credit_History'].fillna(df['Credit_History'].mode()[0], inplace=True)
 
-#EDA
+#Exploratory Data Analysis
 import plotly.express as px
 
 loan_status_count = df['Loan_Status'].value_counts()
@@ -69,7 +70,7 @@ fig_self_employed = px.bar(self_employed_count,
                            title='Self-Employment Distribution')
 fig_self_employed.show()
 
-#
+#Applicant Income distribution
 fig_applicant_income = px.histogram(df, x='ApplicantIncome', 
                                     title='Applicant Income Distribution')
 fig_applicant_income.show()
